@@ -1,8 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 const Friend = (props) => {
   const { name, email, address, website, phone, id } = props.friend;
+
   const friendStyle = {
     border: "3px solid goldenrod",
     padding: "10px",
@@ -11,6 +12,11 @@ const Friend = (props) => {
     color: "#222",
   };
   const url = `/friend/${id}`;
+
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`/friend/${id}`);
+  };
   return (
     <div style={friendStyle}>
       <h2>Name: {name} </h2>
@@ -19,7 +25,20 @@ const Friend = (props) => {
       <p>Visit me: {website} </p>
       <p>Email: {email} </p>
       <small>I live in: {address.city} </small>
+      <br />
+
+      {/* system no 1 */}
       <NavLink to={url}>Visit Me</NavLink>
+      <br />
+
+      {/* system no 2 */}
+      <Link to={url}>
+        <button>Visit Me</button>
+      </Link>
+      <br />
+
+      {/* most uses system no 3*/}
+      <button onClick={handleClick}>Visit Me 2</button>
     </div>
   );
 };
